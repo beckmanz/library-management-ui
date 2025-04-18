@@ -1,13 +1,17 @@
-import "./style.css";
 interface Props {
   name?: string;
   OnClick?: () => void;
 }
 
-export function ButtonForm({ name }: Props) {
+export function ButtonDefault({ name, OnClick }: Props) {
   return (
-    <div>
-      <button>{name}</button>
+    <div className="h-15 w-full rounded-4xl bg-black">
+      <button
+        onClick={OnClick}
+        className="h-full w-full border-none bg-transparent shadow-none"
+      >
+        <p className="text-2xl text-white">{name}</p>
+      </button>
     </div>
   );
 }
