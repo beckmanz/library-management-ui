@@ -25,11 +25,14 @@ export default function Sidebar() {
   ];
 
   const handleSignout = async () => {
+    setIsLoading(true);
     try {
       await signout();
       navigate("/signin");
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
