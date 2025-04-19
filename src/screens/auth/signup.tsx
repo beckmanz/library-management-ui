@@ -1,13 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Library from "../../assets/Bibliophile-pana.svg";
 import { ButtonDefault } from "../../components/button";
 import { InputDefault } from "../../components/input";
 import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { LoadingPage } from "../../components/loading/loadingPage";
 
 export default function Signup() {
+  const { signup } = useAuth();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (
+    name: string,
+    email: string,
+    password: string,
+  ) => {
+    setIsLoading(true);
+    try {
+      await signup(name, email, password);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Erro ao fazer registro:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <div className="flex min-h-screen min-w-screen items-center justify-center gap-7 p-2 md:p-8">
       <div className="hidden h-full w-150 lg:flex">
@@ -26,7 +52,6 @@ export default function Signup() {
               value={name}
               required={true}
               onChange={setName}
-              type="email"
               pattern=".{4,}"
               errorMessage="O nome deve ter pelo menos 4 caracteres"
               placeholder="Digite seu email aqui"
@@ -50,7 +75,10 @@ export default function Signup() {
               placeholder="Digite sua senha aqui"
             />
           </div>
-          <ButtonDefault name="Entrar" />
+          <ButtonDefault
+            OnClick={() => handleSubmit(name, email, password)}
+            name="Criar Conta"
+          />
           <p>
             Já possui uma conta? então{" "}
             <Link className="text-purple-500" to="/signin">
