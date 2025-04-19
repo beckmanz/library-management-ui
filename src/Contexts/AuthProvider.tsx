@@ -68,8 +68,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function signout() {
+    setUser(null);
+    localStorage.removeItem("@Auth:token");
+    localStorage.removeItem("@Auth:user");
+    delete api.defaults.headers.common["Authorization"];
+  }
+
   return (
-    <AuthContext.Provider value={{ user, signin, signup }}>
+    <AuthContext.Provider value={{ user, signin, signup, signout }}>
       {children}
     </AuthContext.Provider>
   );
