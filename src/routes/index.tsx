@@ -6,7 +6,7 @@ import ProtectedRoute from "./protected-route";
 
 const Signin = lazy(() => import("../screens/auth/signin"));
 const Signup = lazy(() => import("../screens/auth/signup"));
-const DashboardHome = lazy(() => import("../screens/dashboard/home"));
+const Authors = lazy(() => import("../screens/dashboard/author"));
 const Books = lazy(() => import("../screens/dashboard/books"));
 const Loans = lazy(() => import("../screens/dashboard/loans"));
 const Readers = lazy(() => import("../screens/dashboard/readers"));
@@ -40,15 +40,15 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <DashboardHome />
+            <Books />
           </Suspense>
         ),
       },
       {
-        path: "/dashboard/books",
+        path: "/dashboard/Authors",
         element: (
           <Suspense fallback={<LoadingPage />}>
-            <Books />
+            <Authors />
           </Suspense>
         ),
       },

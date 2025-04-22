@@ -3,12 +3,12 @@ import { useAuth } from "../../hooks/useAuth";
 import ProfileIcon from "../../assets/profile-icon.jpeg";
 import Logo from "../../assets/Visual_Syntax_Design_Inc_logo.svg";
 import {
-  HomeIcon,
   BookOpenIcon,
   ArrowPathIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { BsPerson } from "react-icons/bs";
 import { useState } from "react";
 import { LoadingPage } from "../loading/loadingPage";
 
@@ -18,8 +18,8 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const navItems = [
-    { path: "/dashboard", icon: HomeIcon, label: "Início" },
-    { path: "/dashboard/books", icon: BookOpenIcon, label: "Livros" },
+    { path: "/dashboard", icon: BookOpenIcon, label: "Livros" },
+    { path: "/dashboard/Authors", icon: BsPerson, label: "Autores" },
     { path: "/dashboard/loans", icon: ArrowPathIcon, label: "Empréstimos" },
     { path: "/dashboard/readers", icon: UsersIcon, label: "Leitores" },
   ];
