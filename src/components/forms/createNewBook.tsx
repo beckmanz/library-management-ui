@@ -61,7 +61,7 @@ export function CreateNewBook({ onBookCreated }: Props) {
     defaultValues: {
       title: "",
       genre: "",
-      publicationYear: undefined,
+      publicationYear: 0,
       authorId: "",
     },
   });
@@ -117,7 +117,7 @@ export function CreateNewBook({ onBookCreated }: Props) {
           <Form {...form}>
             <form
               onSubmit={handleSubmit(handleAddNewBook)}
-              className="space-y-4"
+              className="space-y-2"
             >
               <FormField
                 control={control}
