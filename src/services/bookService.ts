@@ -2,6 +2,7 @@ import { newBookSchema } from "@/components/forms/createNewBook";
 import api from "../config/api";
 import { Author, getAuthorById } from "./authorService";
 import { Book } from "lucide-react";
+import { EditBook } from "@/components/forms/editBook";
 
 export interface Book {
   id: string;
@@ -44,6 +45,23 @@ export async function fetchBooks() {
     return books;
   } catch (error) {
     console.error("Error fetching books:", error);
+    throw error;
+  }
+}
+
+export async function editBook(data: EditBook) {
+  try {
+    const response = await api.put("/book", {
+      id: data.id,
+      title: data.title,
+      genre: data.genre,
+      publicationYear: data.publicationYear,
+    });
+    const author = await getAuthorById(response.data.data.authorId);
+    const bookEdited: Book = { ...response.data.data, author };
+    return bookEdited;
+  } catch (error) {
+    console.log("Erro ao tentar editar o livro", error, data);
     throw error;
   }
 }
