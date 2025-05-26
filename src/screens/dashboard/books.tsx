@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CreateNewBook } from "@/components/forms/createNewBook";
-import { AlertDeleteBook } from "@/components/alerts/Alert";
+import { Alert } from "@/components/alerts/Alert";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -140,7 +140,7 @@ export default function Books() {
                 </TableCell>
                 <TableCell className="flex gap-2">
                   <EditBook book={book} onBookEdited={handleEditBook} />
-                  <AlertDeleteBook
+                  <Alert
                     onClick={() => handleDeleteBook(book.id)}
                     Title="Tem certeza que deseja prosseguir?"
                     Description="Ao prosseguir com essa ação você ira deletar esse livro permanente."
