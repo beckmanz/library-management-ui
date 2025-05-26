@@ -10,32 +10,30 @@ import {
   AlertDialogFooter,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
-import { FaRegTrashAlt } from "react-icons/fa";
+import { Trash } from "lucide-react";
 
 interface Props {
-  onDelete?: () => void;
+  onClick?: () => void;
+  Title: string;
+  Description: string;
 }
 
-export function AlertDeleteBook({ onDelete }: Props) {
+export function AlertDeleteBook({ onClick, Title, Description }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline">
-          <FaRegTrashAlt className="h-5 w-5" />
+          <Trash className="h-5 w-5" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Tem certeza que deseja prosseguir?
-          </AlertDialogTitle>
-          <AlertDialogDescription>
-            Ao prosseguir com essa ação você ira deletar esse livro permanente.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{Title}</AlertDialogTitle>
+          <AlertDialogDescription>{Description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={onDelete}>Deletar</AlertDialogAction>
+          <AlertDialogAction onClick={onClick}>Confirmar</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
