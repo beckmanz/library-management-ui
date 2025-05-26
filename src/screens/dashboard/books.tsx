@@ -17,8 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CreateNewBook } from "@/components/forms/createNewBook";
-import { AlertDeleteBook } from "@/components/alerts/AlertDeleteBook";
-import { LoadingSpinner } from "@/components/loading/loadingSpinner";
+import { AlertDeleteBook } from "@/components/alerts/Alert";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -87,7 +86,6 @@ export default function Books() {
 
   return (
     <div className="flex h-screen w-full flex-col gap-3 p-6">
-      {isLoading && <LoadingSpinner />}
       <div className="flex items-center justify-between">
         <form
           onSubmit={handleSubmit(getBooksByTitle)}
@@ -130,19 +128,23 @@ export default function Books() {
                   {book.author.name}
                 </TableCell>
                 <TableCell>
-                  <p
+                  <Badge
                     className={
                       book.isAvailable
-                        ? "rounded-full bg-green-100 p-1 text-center text-green-500"
-                        : "rounded-full bg-red-100 p-1 text-center text-red-500"
+                        ? "rounded-full bg-green-100 p-2 text-center text-green-500"
+                        : "rounded-full bg-red-100 p-3 text-center text-red-500"
                     }
                   >
                     {book.isAvailable ? "Disponivel" : "Indisponivel"}
-                  </p>
+                  </Badge>
                 </TableCell>
                 <TableCell className="flex gap-2">
                   <EditBook book={book} onBookEdited={handleEditBook} />
-                  <AlertDeleteBook onDelete={() => handleDeleteBook(book.id)} />
+                  <AlertDeleteBook
+                    onClick={() => handleDeleteBook(book.id)}
+                    Title="Tem certeza que deseja prosseguir?"
+                    Description="Ao prosseguir com essa ação você ira deletar esse livro permanente."
+                  />
                 </TableCell>
               </TableRow>
             ))}
