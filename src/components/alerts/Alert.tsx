@@ -18,7 +18,7 @@ interface Props {
   Description: string;
 }
 
-export function AlertDeleteBook({ onClick, Title, Description }: Props) {
+export function Alert({ onClick, Title, Description }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
