@@ -11,11 +11,12 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { Author, fetchAuthors } from "@/services/authorService";
+import { Author, fetchAuthors, deleteAuthor } from "@/services/authorService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoSearchOutline } from "react-icons/io5";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const searchSchema = z.object({
@@ -41,6 +42,17 @@ export default function Authors() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  async function handleDeleteAutor(author: Author) {
+    try {
+      setAutores(Autores.filter((autor) => autor.id !== author.id));
+      deleteAuthor(author.id);
+      toast("Autor deletado", {
+        description: `O autor${author.name} foi deletado com sucesso.`,
+        action: { label: "Ok", onClick: () => console.log() },
+      });
+    } catch (error) {}
   }
 
   async function handleSearch(data: any) {
@@ -86,7 +98,7 @@ export default function Authors() {
                 </TableCell>
                 <TableCell className="flex gap-3">
                   <Alert
-                    onClick={() => console.log("autor deletado", Autor)}
+                    onClick={() => handleDeleteAutor(Autor)}
                     Title="Tem certeza que deseja prosseguir?"
                     Description="Ao prosseguir com essa ação você ira deletar esse autor e todos os livros associados a ele permanentemente."
                   />
