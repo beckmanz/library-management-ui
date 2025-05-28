@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { LoadingSpinner } from "../loading/loadingSpinner";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 interface Props {
   book: Book;
@@ -80,14 +81,15 @@ export function EditBook({ book, onBookEdited }: Props) {
   }
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={open} onOpenChange={(v) => !isSubmitting && setOpen(v)}>
       <SheetTrigger asChild>
         <Button>
           <MdEdit className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      {isSubmitting && <LoadingSpinner />}
-      <SheetContent>
+      <SheetContent
+        className={isSubmitting ? "pointer-events-none opacity-90" : ""}
+      >
         <SheetHeader>
           <SheetTitle>Editar livro</SheetTitle>
           <SheetDescription>
@@ -119,7 +121,13 @@ export function EditBook({ book, onBookEdited }: Props) {
             </p>
           </div>
           <SheetFooter>
-            <Button type="submit">Salvar alterações</Button>
+            <Button type="submit">
+              {isSubmitting ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                "Salvar alterações"
+              )}
+            </Button>
           </SheetFooter>
         </form>
       </SheetContent>
