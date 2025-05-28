@@ -34,6 +34,7 @@ import {
 } from "../ui/form";
 import { addNewBook, Book } from "@/services/bookService";
 import { LoadingSpinner } from "../loading/loadingSpinner";
+import { Loader2 } from "lucide-react";
 
 const newBookSchema = z.object({
   title: z.string().min(1, "Título é obrigatório"),
@@ -98,15 +99,16 @@ export function CreateNewBook({ onBookCreated }: Props) {
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={(v) => !isLoading && setOpen(v)}>
         <DialogTrigger asChild>
           <Button>
             <IoAddSharp />
             Adicionar livro
           </Button>
         </DialogTrigger>
-        {isLoading && <LoadingSpinner />}
-        <DialogContent>
+        <DialogContent
+          className={isLoading ? "pointer-events-none opacity-90" : ""}
+        >
           <DialogHeader>
             <DialogTitle>Adicionar novo livro</DialogTitle>
             <DialogDescription>
@@ -205,7 +207,13 @@ export function CreateNewBook({ onBookCreated }: Props) {
               />
 
               <DialogFooter className="mt-3">
-                <Button type="submit">Salvar</Button>
+                <Button type="submit">
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    "Salvar"
+                  )}
+                </Button>
               </DialogFooter>
             </form>
           </Form>
