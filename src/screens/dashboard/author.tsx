@@ -44,12 +44,16 @@ export default function Authors() {
     }
   }
 
+  function handleNewAuthor(author: Author) {
+    setAutores((prev) => [...prev, author]);
+  }
+
   async function handleDeleteAutor(author: Author) {
     try {
       setAutores(Autores.filter((autor) => autor.id !== author.id));
       deleteAuthor(author.id);
       toast("Autor deletado", {
-        description: `O autor${author.name} foi deletado com sucesso.`,
+        description: `O autor ${author.name} foi deletado com sucesso.`,
         action: { label: "Ok", onClick: () => console.log() },
       });
     } catch (error) {}
@@ -76,7 +80,7 @@ export default function Authors() {
             Filtrar resultados
           </Button>
         </form>
-        <CreateNewAutor />
+        <CreateNewAutor onAuthorCreated={handleNewAuthor} />
       </div>
       <main className="overflow-y-auto rounded-lg px-9">
         <Table className="items-center justify-center border">

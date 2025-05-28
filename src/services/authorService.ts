@@ -1,3 +1,4 @@
+import { NewAutor } from "@/components/forms/CreateNewAutor";
 import api from "../config/api";
 
 export interface Author {
@@ -25,6 +26,20 @@ export async function getAuthorById(authorId: string) {
     const author: Author = { ...response.data.data };
     return author;
   } catch (error) {
+    throw error;
+  }
+}
+
+export async function AddNewAuthor(author: NewAutor) {
+  try{
+    const response = await api.post("/author", {
+      name: author.name,
+      nacionality: author.nationality
+    });
+    const NewAutor: Author = { ...response.data.data};
+    return NewAutor;
+  }catch (error) {
+    console.log("Erro ao tentar adicionar o autor a biblioteca", error, author);
     throw error;
   }
 }
