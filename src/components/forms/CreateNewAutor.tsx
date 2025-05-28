@@ -74,7 +74,7 @@ export function CreateNewAutor({ onAuthorCreated }: Props) {
           </Button>
         </DialogTrigger>
         <DialogContent
-          className={isSubmitting ? "pointer-events-none opacity-50" : ""}
+          className={isSubmitting ? "pointer-events-none opacity-90" : ""}
         >
           <DialogHeader>
             <DialogTitle>Adicionar novo Autor</DialogTitle>
