@@ -1,5 +1,6 @@
 import { NewAutor } from "@/components/forms/CreateNewAutor";
 import api from "../config/api";
+import { EditAuthor } from "@/components/forms/editAutor";
 
 export interface Author {
   id: string;
@@ -50,5 +51,19 @@ export async function deleteAuthor(authorId: string){
     return;
   } catch (error) {
     console.log("erro ao tentar deletar o autor.", error)
+  }
+}
+
+export async function editAuthor(data:EditAuthor) {
+  try{
+    const response = await api.put(`/author/${data.id}`, {
+      name: data.name,
+      nationality: data.nationality
+    })
+
+    const author: Author = {...response.data.data}
+    return author;
+  } catch(error){
+    throw error
   }
 }
