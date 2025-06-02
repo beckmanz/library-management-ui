@@ -1,5 +1,6 @@
 import { Alert } from "@/components/alerts/Alert";
 import { CreateNewAutor } from "@/components/forms/CreateNewAutor";
+import { EditAuthor } from "@/components/forms/editAutor";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -63,6 +64,12 @@ export default function Authors() {
     console.log(data);
   }
 
+  async function handleEditAutor(AutorEdited: Author) {
+    setAutores((prev) =>
+      prev.map((autor) => (autor.id === AutorEdited.id ? AutorEdited : autor)),
+    );
+  }
+
   useEffect(() => {
     getAutores();
   }, []);
@@ -101,6 +108,7 @@ export default function Authors() {
                   <Badge>{Autor.nationality}</Badge>
                 </TableCell>
                 <TableCell className="flex gap-3">
+                  <EditAuthor Author={Autor} onAuthorEdited={handleEditAutor} />
                   <Alert
                     onClick={() => handleDeleteAutor(Autor)}
                     Title="Tem certeza que deseja prosseguir?"
